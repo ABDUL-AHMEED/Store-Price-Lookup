@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Price Finder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Store Price Lookup</h2>
+        
+        <input type="text" id="searchBar" placeholder="Type item name to search... (e.g., Milo, Nylon, Tape)" onkeyup="searchItems()">
+
+        <table id="priceTable">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Size / Variant</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Complete inventory data extracted from all your uploaded images
+        const inventory = [
+            // --- PAGE 1 ---
+            { name: "Deva Pad", variant: "Standard", price: "300" },
+            { name: "Tissue", variant: "Standard", price: "300" },
+            { name: "Stapler Pin", variant: "Standard", price: "500" },
+            { name: "Passion", variant: "Standard", price: "200" },
+            { name: "White Nylon / Ice Cream", variant: "Standard", price: "250" },
+            { name: "Topmost Nylon Small", variant: "With Label", price: "450" },
+            { name: "Topmost Nylon Big", variant: "With Label", price: "900" },
+            { name: "Cadbury 3 in 1", variant: "Standard", price: "400" },
+            { name: "Nescafe 3 in 1", variant: "Standard", price: "250" },
+            { name: "Milo", variant: "Standard", price: "250" },
+            { name: "Milo 3 in 1", variant: "Standard", price: "850" },
+            { name: "Colour Handkerchief", variant: "Pack", price: "3,300" },
+            { name: "Colour Handkerchief", variant: "Single Piece", price: "300" },
+            { name: "White Handkerchief", variant: "Pack", price: "4,600" },
+            { name: "White Handkerchief", variant: "Single Piece", price: "400" },
+            { name: "Brush", variant: "Pack", price: "700" },
+            { name: "Brush", variant: "Single Piece", price: "500" },
+            { name: "Eva Soap", variant: "Pack", price: "3,000" },
+            { name: "Eva Soap", variant: "Single Piece", price: "800" },
+            { name: "Toothpick", variant: "Standard", price: "100" },
+            { name: "Premier Cool Soap", variant: "Standard", price: "500" },
+            { name: "Battery Big", variant: "Big", price: "600" },
+            { name: "Battery Small", variant: "Small", price: "400" },
+            { name: "Closeup Sachet", variant: "Sachet", price: "100" },
+            { name: "Closeup Big", variant: "Big", price: "1,500" },
+            { name: "Closeup Medium", variant: "Medium", price: "600" },
+            { name: "Viva Tablet", variant: "Tablet", price: "800" },
+            { name: "Viva Powder", variant: "Powder", price: "300" },
+            { name: "Ziplock By 52", variant: "Pack", price: "6,000" },
+            { name: "Ziplock Pieces", variant: "Single Piece", price: "300" },
+
+            // --- PAGE 2 ---
+            { name: "Ziplock By 20", variant: "Pack", price: "5,500" },
+            { name: "Small Peak Milk", variant: "Small sachet", price: "300" },
+            { name: "Powder Peak Milk", variant: "Powder sachet", price: "260" },
+            { name: "Can Pack Milk", variant: "Pack", price: "900" },
+            { name: "Three Crowns", variant: "Standard", price: "900" },
+            { name: "Okin", variant: "Standard", price: "300" },
+            { name: "Dangote Sugar", variant: "Big / Small", price: "600 / 500" },
+            { name: "Tom-Tom", variant: "Pack", price: "1,300" },
+            { name: "Lemon-Plus", variant: "Pack", price: "1,000" },
+            { name: "Baba-Blue", variant: "Pack", price: "1,000" },
+            { name: "Thick File", variant: "Standard", price: "500" },
+            { name: "Light File", variant: "Standard", price: "300" },
+            { name: "Hard Cover Long", variant: "Long", price: "3,000" },
+            { name: "Hard Cover Short", variant: "Short", price: "2,500" },
+            { name: "Binding Material", variant: "Standard", price: "500" },
+            { name: "Padlocks", variant: "Big / Medium / Small", price: "800 / 700 / 600" },
+            { name: "Soffer", variant: "Standard", price: "200" },
+            { name: "60 Leaves Exercise Book", variant: "60 Leaves", price: "500" },
+            { name: "40 Leaves Exercise Book", variant: "40 Leaves", price: "400" },
+            { name: "2A Exercise Book", variant: "2A", price: "100" },
+            { name: "ID Card Holder", variant: "Standard", price: "1,500" },
+            { name: "Big Marker", variant: "Big", price: "1,500" },
+            { name: "Marker Permanent", variant: "Standard", price: "350" },
+            { name: "Shaving Stick", variant: "Standard", price: "250" },
+
+            // --- PAGE 3 ---
+            { name: "Oral B Big", variant: "Big", price: "2,200 / 2,100 / 2,000" },
+            { name: "Oral B Small", variant: "Small", price: "1,000" },
+            { name: "Tipot", variant: "Standard", price: "500" },
+            { name: "Big Biro", variant: "Big", price: "200" },
+            { name: "Office File", variant: "Standard", price: "300" },
+            { name: "Sketch Book", variant: "Standard", price: "2,500" },
+            { name: "Sledor Marker", variant: "Standard", price: "1,800 / 1,750" },
+            { name: "Stapler Big", variant: "Big", price: "6,000" },
+            { name: "Stapler Small", variant: "Small", price: "2,500" },
+            { name: "Office Pin", variant: "Standard", price: "500" },
+            { name: "Brown Envelope Pack", variant: "Pack", price: "1,500" },
+            { name: "White Envelope Pack", variant: "Pack", price: "1,500" },
+            { name: "Brown Envelope A4 Size", variant: "A4 Size", price: "200" },
+            { name: "Big Brown Envelope", variant: "Big", price: "500" },
+            { name: "Ledge Envelope", variant: "Standard", price: "300" },
+            { name: "POS Paper Pack", variant: "Pack", price: "2,000" },
+            { name: "POS Paper Single", variant: "Single Roll", price: "250" },
+            { name: "Bet9ja Paper Pack", variant: "Pack", price: "5,500" },
+            { name: "Bet9ja Paper Single", variant: "Single Roll", price: "1,200" },
+            { name: "A4 Paper", variant: "Pack / Ream", price: "5,500" },
+            { name: "Lighter", variant: "Standard", price: "200" },
+            { name: "Super Glue", variant: "Standard", price: "200" },
+            { name: "Wrapping Nylon", variant: "Standard", price: "6,500" },
+            { name: "Scissor", variant: "Standard", price: "1,000" },
+            { name: "Ruler Big", variant: "Big", price: "200" },
+            { name: "Ruler Small", variant: "Small", price: "100" },
+
+            // --- PAGE 4 ---
+            { name: "Brown Paper", variant: "Standard", price: "300" },
+            { name: "Biggest Ganna Must Go", variant: "Biggest", price: "4,500" },
+            { name: "Medium Ganna Must Go", variant: "Medium", price: "4,000" },
+            { name: "Semi Ganna Must Go", variant: "Semi", price: "3,000" },
+            { name: "Small Ganna Must Go", variant: "Small", price: "2,500" },
+            { name: "Pampers", variant: "Standard", price: "2,500" },
+            { name: "Big Transparent Tape", variant: "Big (With Blade)", price: "1,300" },
+            { name: "Transparent Tape", variant: "Small", price: "1,000" },
+            { name: "Hollandia", variant: "Small / Big / Biggest", price: "300 / 600 / 1,000" },
+        ];
+
+        // Function to display items in the table
+        function displayItems(items) {
+            const tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = ""; // Clear current table content
+
+            if(items.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color: #888; padding: 20px;">No items found</td></tr>`;
+                return;
+            }
+
+            items.forEach(item => {
+                let row = `<tr>
+                    <td><strong>${item.name}</strong></td>
+                    <td>${item.variant}</td>
+                    <td class="price">₦${item.price}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        // Search logic function
+        function searchItems() {
+            const query = document.getElementById("searchBar").value.toLowerCase();
+            const filteredItems = inventory.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.variant.toLowerCase().includes(query)
+            );
+            displayItems(filteredItems);
+        }
+
+        // Initialize table setup
+        displayItems(inventory);
+    </script>
+</body>
+</html>
