@@ -11,7 +11,7 @@
     <div class="container">
         <h2>Store Price Lookup</h2>
         
-        <input type="text" id="searchBar" placeholder="Type item name to search... (e.g., Milo, Nylon, Tape)" onkeyup="searchItems()">
+        <input type="text" id="searchBar" placeholder="Type item name to search... (e.g., Milo, Water, Tape)" onkeyup="searchItems()">
 
         <table id="priceTable">
             <thead>
@@ -22,12 +22,12 @@
                 </tr>
             </thead>
             <tbody id="tableBody">
-                </tbody>
+            </tbody>
         </table>
     </div>
 
     <script>
-        // Complete inventory data extracted from all your uploaded images
+        // Complete inventory data including existing items and new photo items
         const inventory = [
             // --- PAGE 1 ---
             { name: "Deva Pad", variant: "Standard", price: "300" },
@@ -125,6 +125,35 @@
             { name: "Big Transparent Tape", variant: "Big (With Blade)", price: "1,300" },
             { name: "Transparent Tape", variant: "Small", price: "1,000" },
             { name: "Hollandia", variant: "Small / Big / Biggest", price: "300 / 600 / 1,000" },
+
+            // --- NEW ITEMS FROM PHOTOS (Update "0" with real prices) ---
+            { name: "Bottled Water", variant: "Pack", price: "2,000" },
+            { name: "Bottled Water", variant: "Single Bottle", price: "200" },
+            { name: "Pure Water Sachet", variant: "Bag", price: "500" },
+            { name: "Pure Water Sachet", variant: "Single Sachet", price: "50" },
+            { name: "Coca-Cola Bottle", variant: "Pack", price: "5500" },
+            { name: "Coca-Cola Bottle", variant: "Single Bottle", price: "500" },
+            { name: "Pepsi Bottle", variant: "Pack", price: "5500" },
+            { name: "Pepsi Bottle", variant: "Single Bottle", price: "500" },
+            { name: "plastic Malt Drink", variant: "single", price: "700" },
+            { name: "can Malt Drink", variant: "Single Bottle", price: "800" },
+            { name: "Three Crowns Milk Sachet", variant: "Single Sachet", price: "250" },
+            { name: "Dano Milk Sachet", variant: "Single Sachet", price: "200" },
+            { name: "TopCafé Sachet", variant: "Single Sachet", price: "300" },
+            { name: "Cowbell Chocolate", variant: "Single Sachet", price: "200" },
+            { name: "Classic Peanut", variant: "Single Piece", price: "100" },
+            { name: "Crunchy Peanut", variant: "Single Piece", price: "100" },
+            { name: "Minimie Chinchin", variant: "Single Pack", price: "200" },
+            { name: "Magik Detergent", variant: "Single Sachet", price: "150,250" },
+            { name: "Viva Plus Detergent", variant: "Single Sachet", price: "150,250,500" },
+            { name: "Paper Clip", variant: "Box", price: "call" },
+            { name: "Sticky Notes", variant: "Pack", price: "call" },
+            { name: "Manila Folders", variant: "Piece", price: "500,300" },
+            { name: "Transparent Tape", variant: "single", price: "600,1200,1500" },
+            { name: "Yellow paper Tape", variant: "single", price: "600" },
+            { name: "EVA water", variant: "Single", price: "500" },
+            { name: "EVA water", variant: "pack", price: "5500" },
+            { name: "black tape", variant: "Single", price: "0" }
         ];
 
         // Function to display items in the table
