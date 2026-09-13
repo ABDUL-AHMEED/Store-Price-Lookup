@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Price Finder</title>
+    
+    <!-- PWA Settings for App Mode -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,7 +17,11 @@
     <div class="container">
         <h2>Store Price Lookup</h2>
         
-        <input type="text" id="searchBar" placeholder="Type item name to search... (e.g., Milo, Water, Tape)" onkeyup="searchItems()">
+        <!-- Search bar with built-in voice mic button -->
+        <div class="search-box">
+            <input type="text" id="searchBar" placeholder="Type or speak item name..." onkeyup="searchItems()">
+            <button type="button" id="micBtn" onclick="toggleVoiceSearch()" title="Click to speak">🎤</button>
+        </div>
 
         <table id="priceTable">
             <thead>
@@ -27,7 +37,7 @@
     </div>
 
     <script>
-        // Complete inventory data including existing items and new photo items
+        // Complete inventory data
         const inventory = [
             // --- PAGE 1 ---
             { name: "Deva Pad", variant: "Standard", price: "300" },
@@ -126,7 +136,7 @@
             { name: "Transparent Tape", variant: "Small", price: "1,000" },
             { name: "Hollandia", variant: "Small / Big / Biggest", price: "300 / 600 / 1,000" },
 
-            // --- NEW ITEMS FROM PHOTOS (Update "0" with real prices) ---
+            // --- NEW ITEMS ---
             { name: "Bottled Water", variant: "Pack", price: "2,000" },
             { name: "Bottled Water", variant: "Single Bottle", price: "200" },
             { name: "Pure Water Sachet", variant: "Bag", price: "500" },
@@ -161,10 +171,10 @@
             { name: "Take away ", variant: "Single", price: "200" }
         ];
 
-        // Function to display items in the table
+        // Function to display items in table
         function displayItems(items) {
             const tableBody = document.getElementById("tableBody");
-            tableBody.innerHTML = ""; // Clear current table content
+            tableBody.innerHTML = ""; 
 
             if(items.length === 0) {
                 tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color: #888; padding: 20px;">No items found</td></tr>`;
@@ -183,7 +193,7 @@
 
         // Search logic function
         function searchItems() {
-            const query = document.getElementById("searchBar").value.toLowerCase();
+            const query = document.getElementById("searchBar").value.toLowerCase().trim();
             const filteredItems = inventory.filter(item => 
                 item.name.toLowerCase().includes(query) || 
                 item.variant.toLowerCase().includes(query)
@@ -191,7 +201,63 @@
             displayItems(filteredItems);
         }
 
-        // Initialize table setup
+        // --- FREE VOICE SEARCH INTEGRATION ---
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition = null;
+        let isListening = false;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function() {
+                isListening = true;
+                const micBtn = document.getElementById("micBtn");
+                micBtn.classList.add("listening");
+                document.getElementById("searchBar").placeholder = "Listening... Speak now";
+            };
+
+            recognition.onresult = function(event) {
+                const spokenText = event.results[0][0].transcript;
+                // Remove trailing dots that speech engines sometimes add
+                const cleanedText = spokenText.replace(/\.$/, ''); 
+                
+                document.getElementById("searchBar").value = cleanedText;
+                searchItems(); // Automatically search after speaking
+            };
+
+            recognition.onerror = function(event) {
+                alert("Voice recognition error: " + event.error);
+                stopListening();
+            };
+
+            recognition.onend = function() {
+                stopListening();
+            };
+        }
+
+        function toggleVoiceSearch() {
+            if (!recognition) {
+                alert("Voice search is not supported by your browser. Please try Chrome or Brave.");
+                return;
+            }
+
+            if (isListening) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        }
+
+        function stopListening() {
+            isListening = false;
+            const micBtn = document.getElementById("micBtn");
+            if(micBtn) micBtn.classList.remove("listening");
+            document.getElementById("searchBar").placeholder = "Type item name to search... (e.g., Milo, Water, Tape)";
+        }
+
+        // Initialize table
         displayItems(inventory);
     </script>
 </body>
