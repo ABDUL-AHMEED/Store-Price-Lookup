@@ -1,61 +1,80 @@
+/* Import Modern Google Font (Inter) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
-    background-color: #f4f6f9;
-    color: #333;
-    padding: 20px;
+    background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+    color: #1e293b;
+    padding: 30px 15px;
+    min-height: 100vh;
 }
 
 .container {
-    max-width: 600px;
+    max-width: 680px;
     margin: 0 auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
 }
 
 h2 {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     text-align: center;
-    color: #1e293b;
+    color: #0f172a;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 /* Flex layout for search bar + mic button */
 .search-box {
     display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin-bottom: 24px;
 }
 
 #searchBar {
     flex: 1;
-    padding: 14px 20px;
-    font-size: 16px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 15px;
+    background-color: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
     outline: none;
-    transition: border-color 0.2s ease;
+    transition: all 0.2s ease-in-out;
+    color: #0f172a;
 }
 
 #searchBar:focus {
+    background-color: #ffffff;
     border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
 #micBtn {
     background-color: #2563eb;
     color: white;
     border: none;
-    padding: 0 18px;
+    padding: 0 20px;
     font-size: 18px;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#micBtn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
 }
 
 #micBtn.listening {
@@ -64,41 +83,71 @@ h2 {
 }
 
 @keyframes pulse {
-    from { opacity: 1; }
-    to { opacity: 0.5; }
+    from { 
+        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); 
+    }
+    to { 
+        box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); 
+    }
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 th, td {
-    padding: 14px 12px;
+    padding: 16px 16px;
     text-align: left;
-    border-bottom: 1px solid #edf2f7;
+    border-bottom: 1px solid #f1f5f9;
 }
 
 th {
     background-color: #f8fafc;
-    color: #64748b;
+    color: #475569;
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 0.5px;
+    font-size: 11px;
+    letter-spacing: 0.8px;
+}
+
+tr:last-child td {
+    border-bottom: none;
 }
 
 tr:hover {
     background-color: #f8fafc;
 }
 
+td strong {
+    color: #0f172a;
+    font-weight: 600;
+}
+
 .price {
-    font-weight: bold;
+    font-weight: 700;
     color: #16a34a;
     text-align: right;
+    font-size: 15px;
 }
 
 th:last-child, td:last-child {
     text-align: right;
+}
+
+/* Mobile responsive padding */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px 16px;
+    }
+    
+    th, td {
+        padding: 12px 10px;
+        font-size: 14px;
+    }
 }
