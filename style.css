@@ -1,153 +1,108 @@
-/* Import Modern Google Font (Inter) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
-    color: #1e293b;
-    padding: 30px 15px;
+    background-color: #0f172a; /* Deep Slate Background */
+    color: #f8fafc;
+    padding: 20px 12px;
     min-height: 100vh;
 }
 
 .container {
-    max-width: 680px;
+    max-width: 650px;
     margin: 0 auto;
-    background: #ffffff;
-    padding: 32px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    background: #1e293b; /* Dark Card Background */
+    padding: 28px 20px;
+    border-radius: 20px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    border: 1px solid #334155;
 }
 
 h2 {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     text-align: center;
-    color: #0f172a;
-    font-size: 24px;
+    color: #38bdf8; /* Bright Cyan Title */
+    font-size: 22px;
     font-weight: 700;
-    letter-spacing: -0.5px;
 }
 
-/* Flex layout for search bar + mic button */
 .search-box {
     display: flex;
     gap: 10px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 #searchBar {
     flex: 1;
-    padding: 14px 18px;
+    padding: 14px 16px;
     font-size: 15px;
-    background-color: #f8fafc;
-    border: 1.5px solid #cbd5e1;
-    border-radius: 10px;
+    background-color: #0f172a;
+    border: 1.5px solid #475569;
+    border-radius: 12px;
     outline: none;
-    transition: all 0.2s ease-in-out;
-    color: #0f172a;
+    color: #ffffff;
 }
 
 #searchBar:focus {
-    background-color: #ffffff;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
 }
 
 #micBtn {
-    background-color: #2563eb;
+    background-color: #2563eb; /* Bright Blue Mic Button */
     color: white;
     border: none;
-    padding: 0 20px;
-    font-size: 18px;
-    border-radius: 10px;
+    padding: 0 18px;
+    font-size: 20px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#micBtn:hover {
-    background-color: #1d4ed8;
-    transform: translateY(-1px);
 }
 
 #micBtn.listening {
-    background-color: #dc2626;
+    background-color: #ef4444;
     animation: pulse 1s infinite alternate;
-}
-
-@keyframes pulse {
-    from { 
-        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); 
-    }
-    to { 
-        box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); 
-    }
 }
 
 table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 8px;
-    border: 1px solid #e2e8f0;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: #0f172a;
     border-radius: 12px;
     overflow: hidden;
 }
 
 th, td {
-    padding: 16px 16px;
+    padding: 14px 12px;
     text-align: left;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #1e293b;
 }
 
 th {
-    background-color: #f8fafc;
-    color: #475569;
+    background-color: #1e293b;
+    color: #94a3b8;
     font-weight: 600;
     text-transform: uppercase;
     font-size: 11px;
-    letter-spacing: 0.8px;
-}
-
-tr:last-child td {
-    border-bottom: none;
-}
-
-tr:hover {
-    background-color: #f8fafc;
 }
 
 td strong {
-    color: #0f172a;
-    font-weight: 600;
+    color: #f8fafc;
 }
 
 .price {
     font-weight: 700;
-    color: #16a34a;
+    color: #4ade80; /* Vibrant Neon Green Prices */
     text-align: right;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 th:last-child, td:last-child {
     text-align: right;
-}
-
-/* Mobile responsive padding */
-@media (max-width: 480px) {
-    .container {
-        padding: 20px 16px;
-    }
-    
-    th, td {
-        padding: 12px 10px;
-        font-size: 14px;
-    }
 }
