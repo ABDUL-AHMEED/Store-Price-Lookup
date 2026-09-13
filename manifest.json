@@ -7,7 +7,7 @@
   "theme_color": "#2563eb",
   "icons": [
     {
-      "src": "file:///C:/Users/HomePC/Downloads/ahmeed.png",
+      "src": "ahmeed.png",
       "sizes": "512x512",
       "type": "image/png"
     }
