@@ -11,10 +11,7 @@
     <div class="container">
         <h2>Store Price Lookup</h2>
         
-        <div class="search-box">
-            <input type="text" id="searchBar" placeholder="Type or click 🎤 to speak..." onkeyup="searchItems()">
-            <button id="micBtn" onclick="startVoiceSearch()" title="Search with voice">🎤</button>
-        </div>
+        <input type="text" id="searchBar" placeholder="Type item name to search... (e.g., Milo, Water, Tape)" onkeyup="searchItems()">
 
         <table id="priceTable">
             <thead>
@@ -30,6 +27,7 @@
     </div>
 
     <script>
+        // Complete inventory data including existing items and new photo items
         const inventory = [
             // --- PAGE 1 ---
             { name: "Deva Pad", variant: "Standard", price: "300" },
@@ -80,10 +78,10 @@
             { name: "Hard Cover Short", variant: "Short", price: "2,500" },
             { name: "Binding Material", variant: "Standard", price: "500" },
             { name: "Padlocks", variant: "Big / Medium / Small", price: "800 / 700 / 600" },
-            { name: "Soffer", variant: "Standard", price: "200" },
+            { name: "Sodaer", variant: "Standard", price: "200" },
             { name: "60 Leaves Exercise Book", variant: "60 Leaves", price: "500" },
             { name: "40 Leaves Exercise Book", variant: "40 Leaves", price: "400" },
-            { name: "2A Exercise Book", variant: "2A", price: "100" },
+            { name: "2A Exercise Book", variant: "2A", price: "300" },
             { name: "ID Card Holder", variant: "Standard", price: "1,500" },
             { name: "Big Marker", variant: "Big", price: "1,500" },
             { name: "Marker Permanent", variant: "Standard", price: "350" },
@@ -128,47 +126,45 @@
             { name: "Transparent Tape", variant: "Small", price: "1,000" },
             { name: "Hollandia", variant: "Small / Big / Biggest", price: "300 / 600 / 1,000" },
 
-            // --- NEW ITEMS ---
-            { name: "Bottled Water", variant: "Pack", price: "0" },
-            { name: "Bottled Water", variant: "Single Bottle", price: "0" },
-            { name: "Pure Water Sachet", variant: "Bag", price: "0" },
-            { name: "Pure Water Sachet", variant: "Single Sachet", price: "0" },
-            { name: "Coca-Cola Bottle", variant: "Pack", price: "0" },
-            { name: "Coca-Cola Bottle", variant: "Single Bottle", price: "0" },
-            { name: "Pepsi Bottle", variant: "Pack", price: "0" },
-            { name: "Pepsi Bottle", variant: "Single Bottle", price: "0" },
-            { name: "Malt Drink", variant: "Pack", price: "0" },
-            { name: "Malt Drink", variant: "Single Bottle", price: "0" },
-            { name: "Three Crowns Milk Sachet", variant: "Strip / Pack", price: "0" },
-            { name: "Three Crowns Milk Sachet", variant: "Single Sachet", price: "0" },
-            { name: "Dano Milk Sachet", variant: "Strip / Pack", price: "0" },
-            { name: "Dano Milk Sachet", variant: "Single Sachet", price: "0" },
-            { name: "TopCafé Sachet", variant: "Strip / Pack", price: "0" },
-            { name: "TopCafé Sachet", variant: "Single Sachet", price: "0" },
-            { name: "Cowbell Chocolate", variant: "Strip / Pack", price: "0" },
-            { name: "Cowbell Chocolate", variant: "Single Sachet", price: "0" },
-            { name: "Classic Peanut", variant: "Strip / Pack", price: "0" },
-            { name: "Classic Peanut", variant: "Single Piece", price: "0" },
-            { name: "Crunchy Peanut", variant: "Strip / Pack", price: "0" },
-            { name: "Crunchy Peanut", variant: "Single Piece", price: "0" },
-            { name: "Minimie Chinchin", variant: "Pack", price: "0" },
-            { name: "Minimie Chinchin", variant: "Single Pack", price: "0" },
-            { name: "Magik Detergent", variant: "Pack / Bundle", price: "0" },
-            { name: "Magik Detergent", variant: "Single Sachet", price: "0" },
-            { name: "Viva Plus Detergent", variant: "Pack", price: "0" },
-            { name: "Viva Plus Detergent", variant: "Single Sachet", price: "0" },
-            { name: "Paper Clip", variant: "Box", price: "0" },
-            { name: "Sticky Notes", variant: "Pack", price: "0" },
-            { name: "Manila Folders", variant: "Pack / Piece", price: "0" },
-            { name: "Clear Packing Tape", variant: "Roll", price: "0" },
-            { name: "Yellow Packing Tape", variant: "Roll", price: "0" },
-            { name: "Plastic Buckets", variant: "Single", price: "0" },
-            { name: "Woven Floor Mat", variant: "Single", price: "0" }
+            // --- NEW ITEMS FROM PHOTOS (Update "0" with real prices) ---
+            { name: "Bottled Water", variant: "Pack", price: "2,000" },
+            { name: "Bottled Water", variant: "Single Bottle", price: "200" },
+            { name: "Pure Water Sachet", variant: "Bag", price: "500" },
+            { name: "Pure Water Sachet", variant: "Single Sachet", price: "50" },
+            { name: "Coca-Cola Bottle", variant: "Pack", price: "5500" },
+            { name: "Coca-Cola Bottle", variant: "Single Bottle", price: "500" },
+            { name: "Pepsi Bottle", variant: "Pack", price: "5500" },
+            { name: "Pepsi Bottle", variant: "Single Bottle", price: "500" },
+            { name: "plastic Malt Drink", variant: "single", price: "700" },
+            { name: "can Malt Drink", variant: "Single Bottle", price: "800" },
+            { name: "Three Crowns Milk Sachet", variant: "Single Sachet", price: "250" },
+            { name: "Dano Milk Sachet", variant: "Single Sachet", price: "200" },
+            { name: "TopCafé Sachet", variant: "Single Sachet", price: "300" },
+            { name: "Cowbell Chocolate", variant: "Single Sachet", price: "200" },
+            { name: "Classic Peanut", variant: "Single Piece", price: "100" },
+            { name: "Crunchy Peanut", variant: "Single Piece", price: "100" },
+            { name: "Minimie Chinchin", variant: "Single Pack", price: "200" },
+            { name: "Magik Detergent", variant: "Single Sachet", price: "150,250" },
+            { name: "Viva Plus Detergent", variant: "Single Sachet", price: "150,250,500" },
+            { name: "Paper Clip", variant: "Box", price: "call" },
+            { name: "Sticky Notes", variant: "Pack", price: "call" },
+            { name: "Manila Folders", variant: "Piece", price: "500,300" },
+            { name: "Transparent Tape", variant: "single", price: "600,1200,1500" },
+            { name: "Yellow paper Tape", variant: "single", price: "600" },
+            { name: "EVA water", variant: "Single", price: "500" },
+            { name: "EVA water", variant: "pack", price: "5500" },
+            { name: "black tape", variant: "Single", price: "500" },
+            { name: "NUTRI-MILK", variant: "Single", price: "800" },
+            { name: "LUKOSADE boast", variant: "Single", price: "1200" },
+            { name: "Fragile tape", variant: "Single", price: "1200" },
+            { name: "slipers", variant: "Single", price: "2000" },
+            { name: "Take away ", variant: "Single", price: "200" }
         ];
 
+        // Function to display items in the table
         function displayItems(items) {
             const tableBody = document.getElementById("tableBody");
-            tableBody.innerHTML = "";
+            tableBody.innerHTML = ""; // Clear current table content
 
             if(items.length === 0) {
                 tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color: #888; padding: 20px;">No items found</td></tr>`;
@@ -185,6 +181,7 @@
             });
         }
 
+        // Search logic function
         function searchItems() {
             const query = document.getElementById("searchBar").value.toLowerCase();
             const filteredItems = inventory.filter(item => 
@@ -194,44 +191,7 @@
             displayItems(filteredItems);
         }
 
-        // Voice Search Logic
-        function startVoiceSearch() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            
-            if (!SpeechRecognition) {
-                alert("Voice search is not supported on this browser. Try Chrome or Safari.");
-                return;
-            }
-
-            const recognition = new SpeechRecognition();
-            const micBtn = document.getElementById("micBtn");
-
-            recognition.lang = 'en-NG'; // Set language focus
-            recognition.interimResults = false;
-
-            recognition.onstart = function() {
-                micBtn.classList.add("listening");
-                micBtn.innerText = "🔴";
-            };
-
-            recognition.onresult = function(event) {
-                const spokenText = event.results[0][0].transcript.replace(/\.$/, '');
-                document.getElementById("searchBar").value = spokenText;
-                searchItems();
-            };
-
-            recognition.onerror = function() {
-                alert("Could not hear clearly, please try speaking again.");
-            };
-
-            recognition.onend = function() {
-                micBtn.classList.remove("listening");
-                micBtn.innerText = "🎤";
-            };
-
-            recognition.start();
-        }
-
+        // Initialize table setup
         displayItems(inventory);
     </script>
 </body>
