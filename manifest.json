@@ -12,5 +12,11 @@
       "type": "image/png",
       "purpose": "any maskable"
     },
+    {
+      "src": "ahmeed.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }
